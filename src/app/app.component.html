@@ -1,21 +1,11 @@
 <app-nav></app-nav>
 
 <div class="app-main container">
-  <h2>App component</h2>
-
-  <alert type="success">
-    <strong>Well done!</strong> You successfully read this important alert
-    message.
-  </alert>
-  <ul>
-    @for(user of users; track user.email){
-    <li>{{ user.name }}</li>
-    }
-  </ul>
+  <router-outlet />
 </div>
 
 <style lang="scss">
   .app-main {
-    margin-top: 50px;
+    margin-top: 100px;
   }
 </style>

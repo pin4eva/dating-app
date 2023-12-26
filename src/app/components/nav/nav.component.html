@@ -1,6 +1,8 @@
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
   <div class="container">
-    <a class="navbar-brand" href="#">Dating App</a>
+    <a class="navbar-brand" routerLink="/" routerLinkActive="active"
+      >Dating App</a
+    >
     <button
       class="navbar-toggler"
       type="button"
@@ -14,19 +16,23 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav me-auto mb-2 mb-md-0" *ngIf="currentUser$">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Matches</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Lists</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link">Messages</a>
-        </li>
+      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <ng-container *ngIf="authService.currentUser$ | async">
+          @for(nav of navlist; track nav){
+          <li class="nav-item">
+            <a
+              class="nav-link active"
+              aria-current="page"
+              routerLink="{{ nav.link }}"
+              routerLinkActive="active"
+              >{{ nav.name }}</a
+            >
+          </li>
+          }
+        </ng-container>
       </ul>
 
-      <div class="dropdown" *ngIf="currentUser$">
+      <div class="dropdown" *ngIf="authService.currentUser$ | async">
         <div class="dropdown">
           <a
             class="text-light dropdown-toggle"
@@ -43,7 +49,7 @@
         </div>
       </div>
       <form
-        *ngIf="!currentUser$"
+        *ngIf="!(authService.currentUser$ | async)"
         #loginForm="ngForm"
         class="d-flex ms-auto"
         (ngSubmit)="login()"
@@ -75,5 +81,8 @@
       cursor: pointer;
       text-decoration: none;
     }
+  }
+  a {
+    cursor: pointer;
   }
 </style>

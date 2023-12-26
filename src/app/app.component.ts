@@ -5,8 +5,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { NavComponent } from './components/nav/nav.component';
-import { AuthService } from './services/auth.service';
+import { AuthService } from './_services/auth.service';
 import { LoginResponse } from './interfaces/auth.interface';
+import { HomeComponent } from './home/home.component';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -22,6 +23,7 @@ import { LoginResponse } from './interfaces/auth.interface';
 
     // components
     NavComponent,
+    HomeComponent,
   ],
 
   templateUrl: './app.component.html',
@@ -29,22 +31,14 @@ import { LoginResponse } from './interfaces/auth.interface';
 })
 export class AppComponent implements OnInit {
   title = 'frontend';
-  users: User[] = [];
+
   constructor(
     private readonly http: HttpClient,
     private authService: AuthService
   ) {}
 
   ngOnInit(): void {
-    this.getUsers();
     this.setCurrentUser();
-  }
-
-  getUsers() {
-    this.http.get<User[]>('http://localhost:5223/api/users').subscribe({
-      next: (data) => (this.users = data),
-      error: (e) => console.log(e),
-    });
   }
 
   setCurrentUser() {
