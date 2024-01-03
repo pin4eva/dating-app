@@ -32,7 +32,7 @@
         </ng-container>
       </ul>
 
-      <div class="dropdown" *ngIf="authService.currentUser$ | async">
+      <div class="dropdown" *ngIf="authService.currentUser$ | async as user">
         <div class="dropdown">
           <a
             class="text-light dropdown-toggle"
@@ -40,10 +40,12 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            Welcome User
+            Welcome {{ user?.username }}
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li>
+              <a class="dropdown-item" routerLink="/members/edit">Profile</a>
+            </li>
             <li><a class="dropdown-item" (click)="logout()">Log Out</a></li>
           </ul>
         </div>

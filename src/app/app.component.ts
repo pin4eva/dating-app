@@ -8,6 +8,7 @@ import { NavComponent } from './components/nav/nav.component';
 import { AuthService } from './_services/auth.service';
 import { LoginResponse } from './interfaces/auth.interface';
 import { HomeComponent } from './home/home.component';
+import { environment } from '../environments/environment.development';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -35,7 +36,9 @@ export class AppComponent implements OnInit {
   constructor(
     private readonly http: HttpClient,
     private authService: AuthService
-  ) {}
+  ) {
+    console.log(environment.apiUrl);
+  }
 
   ngOnInit(): void {
     this.setCurrentUser();
